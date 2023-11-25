@@ -5,7 +5,11 @@ from tkinter import ttk
 from tkinter import Button
 from tkinter import Tk 
 
-from model import Model
+from model import editar_item
+from model import guardar
+from model import eliminar_item
+from model import enter_event
+from model import insert_treeview
 
 
 class View:
@@ -19,7 +23,6 @@ class View:
         self.var_description = StringVar()
         self.var_search = StringVar()
 
-       
 
         """ configuración estética de root """
 
@@ -41,6 +44,7 @@ class View:
         self.description.grid(row=3, column=0, sticky="w")
         self.search = Label(root, text="buscar", fg="white", bg="black")
         self.search.grid(row=4, column=3, sticky="w")
+        # search.grid(row=4, column=0, sticky=W)
 
 
 
@@ -56,6 +60,7 @@ class View:
         self.entry_description.grid(row=3, column=1)
         self.entry_search = Entry(root, textvariable=self.var_search, width=15)
         self.entry_search.grid(row=3, column=3, sticky="w")
+        # entry_search.grid(row=5, column=0, sticky=W)
 
 
 
@@ -74,28 +79,26 @@ class View:
         self.tree.heading("col4", text="Descripción")
         self.tree.grid(row=6, column=0, columnspan=4, pady=20)
 
-        self.model_class = Model(self.tree)
-
         """ buttons """
 
-        edit_btn = Button(root, text="Editar", command=lambda:self.model_class.editar_item(root, self.var_name, self.var_country, self.var_gender, self.var_description, self.entry_name, self.entry_country, self.entry_gender, self.entry_description ))
+        edit_btn = Button(root, text="Editar", command=lambda:editar_item(root, self.tree, self.var_name, self.var_country, self.var_gender, self.var_description, self.entry_name, self.entry_country, self.entry_gender, self.entry_description ))
 
         edit_btn.grid(row=1, column=3, sticky="w")
 
-        btn_alta = Button(root, text="Guardar", command=lambda:self.model_class.guardar(self.var_name.get(), self.var_country.get(), self.var_gender.get(), self.var_description.get(), self.entry_name, self.entry_country, self.entry_gender, self.entry_description, root)
+        btn_alta = Button(root, text="Guardar", command=lambda:guardar(self.var_name.get(), self.var_country.get(), self.var_gender.get(), self.var_description.get(), self.tree, self.entry_name, self.entry_country, self.entry_gender, self.entry_description, root)
         )
         btn_alta.grid(row=1, column=2, sticky="w")
 
 
-        delete_btn = Button(root, text="Eliminar", command=lambda:self.model_class.eliminar_item())
-        
+        delete_btn = Button(root, text="Eliminar", command=lambda:eliminar_item(self.tree)
+        )
         delete_btn.grid(row=3, column=2,sticky="w")
 
-        
-        root.bind('<Return>', lambda event: self.model_class.enter_event(self.var_search))
-    
 
-        self.model_class.insert_treeview()
+
+
+        root.bind('<Return>',  lambda event:enter_event(event, self.tree, self.var_search))
+        insert_treeview(self.tree)
 
 
 

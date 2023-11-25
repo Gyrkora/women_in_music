@@ -1,10 +1,10 @@
 from tkinter import Tk 
 
-import view
+from view import View
 
 if __name__ == "__main__":
-    root_tk = Tk()
+    root = Tk()
 
-    view.main_view(root_tk)
+    app = View(root)
 
-    root_tk.mainloop()
+    root.mainloop()
