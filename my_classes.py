@@ -1,4 +1,5 @@
 from tkinter import Label
+import sqlite3
 
 class Utilities():
     def __init__(self, tree):
@@ -34,3 +35,27 @@ class Utilities():
 
 
 
+class MyDataBase():
+    def __init__(self):
+        self.conn = None
+        self.cursor = None
+        try:
+            self.conn = sqlite3.connect('mydatabase.db')
+            self.conn.execute("PRAGMA encoding = 'UTF-8'")
+            print("Conectado")
+            self.cursor = self.conn.cursor()
+        except Exception as e:
+            print(e)
+
+
+    def create_table(self):
+        sql = """CREATE TABLE IF NOT EXISTS mujeres_en_la_musica
+                (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre varchar(20) NOT NULL,
+                país varchar(20) NOT NULL, 
+                género varchar(20) NOT NULL,
+                descripción TEXT NOT NULL
+                )"""
+        self.cursor.execute(sql)
+        self.conn.commit()
+    

@@ -1,37 +1,19 @@
 from tkinter import Button
 import sqlite3
 import re
-from my_classes import Utilities
+from my_classes import Utilities, MyDataBase
 
 ##--Modelo--##
 
 class Model():
     def __init__(self, tree):
         self.tree = tree
-        self.con = self.conexion()
-        self.cursor = self.con.cursor()
         self.type_error = None
         self.guardar_cambios_btn = None
         self.my_utilities = Utilities(tree)
+        self.db = MyDataBase()
+        self.db.create_table()
 
-        self.crear_tabla()
-
-    """ Base de datos """
-    def conexion(self):
-        con2 = sqlite3.connect("women_in_music.db")
-        con2.execute("PRAGMA encoding = 'UTF-8'")
-        return con2
-
-    def crear_tabla(self):
-        sql = """CREATE TABLE IF NOT EXISTS mujeres_en_la_musica
-                (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nombre varchar(20) NOT NULL,
-                país varchar(20) NOT NULL, 
-                género varchar(20) NOT NULL,
-                descripción TEXT NOT NULL
-                )"""
-        self.cursor.execute(sql)
-        self.con.commit()
 
     def enter_event(self, var_search):
         self.buscar_item(self.tree, var_search)
@@ -41,17 +23,15 @@ class Model():
 
     def guardar(self, name, country, gender, description, entry_name, entry_country, entry_gender, entry_description, root):
         if not all((name, country, gender, description)):
-            print("Error", "Please fill in all mandatory fields.")
             Utilities.advertencia("se deben rellenar todas las entradas", "red", "white", 4, 1, root)
             return
         patron = "^[a-zA-Z0-9 ]*$"
         if re.match(patron, name):
-            print("entrada válida")
             name_capitalized = Utilities.capitalized_doubled(name)
             data = (name_capitalized, country.capitalize(), gender.capitalize(), description.capitalize())
             sql = "INSERT INTO mujeres_en_la_musica(nombre, país, género, descripción) VALUES(?, ?, ?, ?)"
-            self.cursor.execute(sql, data)
-            self.con.commit()
+            self.db.cursor.execute(sql, data)
+            self.db.conn.commit()
             self.my_utilities.update_treeview_GUI()
             self.insert_treeview()
             Utilities.clear_entries(entry_name, entry_country, entry_gender, entry_description)
@@ -68,14 +48,14 @@ class Model():
             print(type(mi_id))
             data = (mi_id,)
             sql = "DELETE FROM mujeres_en_la_musica WHERE id = ?"
-            self.cursor.execute(sql, data)
-            self.con.commit()
+            self.db.cursor.execute(sql, data)
+            self.db.conn.commit()
             self.tree.delete(item)
 
 
     def insert_treeview(self):
         sql = "SELECT * FROM mujeres_en_la_musica ORDER BY id ASC"
-        datos = self.cursor.execute(sql)
+        datos = self.db.cursor.execute(sql)
         datos_db = datos.fetchall()
         for row in datos_db:
             self.tree.insert("", 0, text=row[0], values=(row[1], row[2], row[3], row[4]))
@@ -83,7 +63,7 @@ class Model():
     def buscar_item(self, tree, var_search):
         self.my_utilities.update_treeview_GUI()
         sql = "SELECT * FROM mujeres_en_la_musica ORDER BY id ASC"
-        datos = self.cursor.execute(sql)
+        datos = self.db.cursor.execute(sql)
         search_value = var_search.get().lower()  
         datos_db = datos.fetchall()
         for dato in datos_db:
@@ -96,8 +76,8 @@ class Model():
         if selected_item:
             selected_id = self.tree.item(selected_item, "text") 
             sql_selection = "SELECT * FROM mujeres_en_la_musica WHERE id=?"
-            self.cursor.execute(sql_selection, (selected_id,))
-            row = self.cursor.fetchone()
+            self.db.cursor.execute(sql_selection, (selected_id,))
+            row = self.db.cursor.fetchone()
             if row:
                 var_name.set(row[1])
                 var_country.set(row[2])
@@ -111,9 +91,9 @@ class Model():
         selected_id = self.tree.item(selected_item, "text")
         name_capitalized = Utilities.capitalized_doubled(var_name.get())
         var_name  = name_capitalized
-        self.cursor.execute("UPDATE mujeres_en_la_musica SET nombre=?, país=?, género=?, descripción=? WHERE id=?", (
+        self.db.cursor.execute("UPDATE mujeres_en_la_musica SET nombre=?, país=?, género=?, descripción=? WHERE id=?", (
             name_capitalized, var_country.get().capitalize(), var_gender.get().capitalize(), var_description.get().capitalize(), selected_id))
-        self.con.commit()
+        self.db.conn.commit()
         Utilities.clear_entries(entry_name, entry_country, entry_gender, entry_description)
         self.my_utilities.update_treeview_GUI()
         self.insert_treeview()
