@@ -5,6 +5,6 @@ import view
 if __name__ == "__main__":
     root_tk = Tk()
 
-    view.main_view(root_tk)
+    view.View(root_tk)
 
     root_tk.mainloop()
