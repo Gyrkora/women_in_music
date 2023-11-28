@@ -78,24 +78,29 @@ class View:
 
         """ buttons """
 
-        # edit_btn = Button(root, text="Editar", command=lambda:self.model_class.editar_item(root, self.var_name, self.var_country, self.var_gender, self.var_description, self.entry_name, self.entry_country, self.entry_gender, self.entry_description ))
+        edit_btn = Button(root, text="Editar", command=lambda:self.model_class.editar_item(root, self.var_name, self.var_country, self.var_gender, self.var_description, self.entry_name, self.entry_country, self.entry_gender, self.entry_description ))
 
-        # edit_btn.grid(row=1, column=3, sticky="w")
+        edit_btn.grid(row=1, column=3, sticky="w")
 
-        # btn_alta = Button(root, text="Guardar", command=lambda:self.model_class.guardar(self.var_name.get(), self.var_country.get(), self.var_gender.get(), self.var_description.get(), self.entry_name, self.entry_country, self.entry_gender, self.entry_description, root)
-        # )
-        # btn_alta.grid(row=1, column=2, sticky="w")
+        btn_alta = Button(root, text="Guardar", command=lambda:self.model_class.guardar(self.var_name.get(), self.var_country.get(), self.var_gender.get(), self.var_description.get(), self.entry_name, self.entry_country, self.entry_gender, self.entry_description, root)
+        )
+        btn_alta.grid(row=1, column=2, sticky="w")
 
 
-        # delete_btn = Button(root, text="Eliminar", command=lambda:self.model_class.eliminar_item())
+        delete_btn = Button(root, text="Eliminar", command=lambda:self.model_class.eliminar_item())
         
-        # delete_btn.grid(row=3, column=2,sticky="w")
+        delete_btn.grid(row=3, column=2,sticky="w")
 
         
-        # root.bind('<Return>', lambda event: self.model_class.enter_event(self.var_search))
+
+        delete_btn = Button(root, text="buscar", command=lambda:self.model_class.buscar_item(self.var_search))
+        
+        delete_btn.grid(row=4, column=3,sticky="w")
+
+        root.bind('<Return>', lambda event: self.model_class.enter_event(self.var_search))
     
 
-        # self.model_class.insert_treeview()
+        self.model_class.insert_treeview()
 
 
 
