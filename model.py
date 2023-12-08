@@ -40,17 +40,22 @@ class Model():
             Utilities.advertencia("Sólo se aceptan números o letras", "red", "white", 1, 1, root)
 
     def eliminar_item(self):
-        items_seleccionados = self.tree.selection() 
-        for item in items_seleccionados:
-            id_item = self.tree.item(item, "text")
-            print(id_item)
-            mi_id = id_item
-            print(type(mi_id))
-            data = (mi_id,)
-            sql = "DELETE FROM mujeres_en_la_musica WHERE id = ?"
-            self.db.cursor.execute(sql, data)
-            self.db.conn.commit()
-            self.tree.delete(item)
+
+        try:
+            items_seleccionados = self.tree.selection() 
+            for item in items_seleccionados:
+                id_item = self.tree.item(item, "text")
+                print(id_item)
+                mi_id = id_item
+                print(type(mi_id))
+                data = (mi_id,)
+                sql = "DELETE FROM mujeres_en_la_musica WHERE id = ?"
+                self.db.cursor.execute(sql, data)
+                self.db.conn.commit()
+                self.tree.delete(item)
+        except Exception as e:
+            print("the error ==> ", e)
+
 
 
     def insert_treeview(self):
@@ -61,32 +66,41 @@ class Model():
             self.tree.insert("", 0, text=row[0], values=(row[1], row[2], row[3], row[4]))
 
     def buscar_item(self, tree, var_search):
-        self.my_utilities.update_treeview_GUI()
-        sql = "SELECT * FROM mujeres_en_la_musica ORDER BY id ASC"
-        datos = self.db.cursor.execute(sql)
-        search_value = var_search.get().lower()  
-        datos_db = datos.fetchall()
-        for dato in datos_db:
-            if any(search_value in str(value).lower() for value in dato):
-                tree.insert("", 0, text=dato[0], values=(dato[1], dato[2], dato[3], dato[4]))
+        try:
+            self.my_utilities.update_treeview_GUI()
+            sql = "SELECT * FROM mujeres_en_la_musica ORDER BY id ASC"
+            datos = self.db.cursor.execute(sql)
+            search_value = var_search.get().lower()  
+            datos_db = datos.fetchall()
+            for dato in datos_db:
+                if any(search_value in str(value).lower() for value in dato):
+                    tree.insert("", 0, text=dato[0], values=(dato[1], dato[2], dato[3], dato[4]))
+        except Exception as e:
+            print("there was an error in searching items ==> ", e)
 
     def editar_item(self, root, var_name, var_country, var_gender, var_description, entry_name, entry_country, entry_gender, entry_description):
         global guardar_cambios_btn
-        selected_item = self.tree.selection()
-        if selected_item:
-            selected_id = self.tree.item(selected_item, "text") 
-            sql_selection = "SELECT * FROM mujeres_en_la_musica WHERE id=?"
-            self.db.cursor.execute(sql_selection, (selected_id,))
-            row = self.db.cursor.fetchone()
-            if row:
-                var_name.set(row[1])
-                var_country.set(row[2])
-                var_gender.set(row[3])
-                var_description.set(row[4])
-                guardar_cambios_btn = Button(root, text="Guardar Cambios", command=lambda:self.guardar_cambios(var_name, var_country, var_gender, var_description, entry_name, entry_country, entry_gender, entry_description))
-                guardar_cambios_btn.grid(row=4, column=1, pady=15)
+        try:
+            selected_item = self.tree.selection()
+            if selected_item:
+                selected_id = self.tree.item(selected_item, "text") 
+                sql_selection = "SELECT * FROM mujeres_en_la_musica WHERE id=?"
+                self.db.cursor.execute(sql_selection, (selected_id,))
+                row = self.db.cursor.fetchone()
+                if row:
+                    var_name.set(row[1])
+                    var_country.set(row[2])
+                    var_gender.set(row[3])
+                    var_description.set(row[4])
+                    guardar_cambios_btn = Button(root, text="Guardar Cambios", command=lambda:self.guardar_cambios(var_name, var_country, var_gender, var_description, entry_name, entry_country, entry_gender, entry_description))
+                    guardar_cambios_btn.grid(row=4, column=1, pady=15)
+        except Exception as e:
+            print("There was an error in editing item ==>", e)
 
     def guardar_cambios(self, var_name, var_country, var_gender, var_description, entry_name, entry_country, entry_gender, entry_description):
+        
+        
+
         selected_item = self.tree.selection()
         selected_id = self.tree.item(selected_item, "text")
         name_capitalized = Utilities.capitalized_doubled(var_name.get())

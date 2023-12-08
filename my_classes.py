@@ -45,7 +45,7 @@ class MyDataBase():
             print("Conectado")
             self.cursor = self.conn.cursor()
         except Exception as e:
-            print(e)
+            print("the error ==> ", e)
 
 
     def create_table(self):
