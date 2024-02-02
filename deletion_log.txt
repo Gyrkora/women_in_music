@@ -1,0 +1,18 @@
+nuevo registro None.
+registro actualizado 29.
+registro eliminado 28 a las 2024-02-02 00:21:51.445845.
+nuevo registro None.
+registro actualizado 30.
+registro eliminado 27 a las 2024-02-02 00:24:34.560620.
+registro eliminado 29 a las H:32:11.
+nuevo registro.
+registro eliminado 31 a las 02/02/2024.
+nuevo registro.
+nuevo registro.
+registro eliminado 33 a las 02/02/2024, 00:35:48.
+nuevo registro 02/02/2024 00:57:41.
+registro eliminado con id 34 el día 02/02/2024 00:57:44.
+registro actualizado 30 el día 02/02/2024 00:57:50.
+nuevo registro 02/02/2024 00:58:40.
+registro actualizado con id: 35 el dia 02/02/2024 00:58:46.
+registro eliminado con id: 35 el dia 02/02/2024 00:58:49.

@@ -10,6 +10,7 @@ Módulo que tiene como objetivo entregar clases y métodos que ayuden a organiza
 from tkinter import Label
 import sqlite3
 import re
+import datetime
 
 class Utilidades():
 
@@ -142,3 +143,38 @@ class Validar():
             return True
         else:
             print("Sólo se aceptan números o letras")
+
+
+class Decoradores_iea:
+    def __init__(self, option):
+        self.option = option
+
+    def __call__(self, func):
+        def wrapper(*args, **kwargs):
+            modified_item = func(*args, **kwargs)
+            date_time = datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S')
+
+            with open('deletion_log.txt', 'a') as file:  
+                if self.option == 'option1':
+                    print("Se ha ingresado nuevo registro el día ")
+                    file.write(f"nuevo registro {date_time}.\n")
+                elif self.option == 'option2':
+                    print("Se ha eliminado un registro")
+                    file.write(f"registro eliminado con id: {modified_item} el dia {date_time}.\n")
+                    return modified_item
+                elif self.option == 'option3':
+                    print("Se ha actualizado un registro")
+                    file.write(f"registro actualizado con id: {modified_item} el dia {date_time}.\n")
+                    return modified_item
+        
+
+        return wrapper
+
+
+# def decoradores_iea_como_fn(fcn):
+#     def envoltura(*args):
+#         print("objeto eliminado")
+#         return fcn(*args)
+#     return envoltura
+
+   

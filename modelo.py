@@ -8,7 +8,7 @@ En este módulo se puede encontrar el funcionamiento de la API, ya que utiliza l
 
 
 from tkinter import Button
-from clases_secundarias import Utilidades, MyDataBase, Validar
+from clases_secundarias import Utilidades, MyDataBase, Validar, Decoradores_iea
 
 
 class Abmc():
@@ -30,6 +30,7 @@ class Abmc():
 
 
 
+    @Decoradores_iea(option="option1")
     def guardar(self, nombre, pais, genero, descripcion, entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion, root):
 
         """
@@ -55,6 +56,7 @@ class Abmc():
         else:
             self.mis_utilidades.advertencia("Sólo se aceptan números o letras", "red", "white", 1, 1, root)
 
+    @Decoradores_iea(option="option2")
     def eliminar_item(self):
 
         """
@@ -67,14 +69,13 @@ class Abmc():
             items_seleccionados = self.tree.selection() 
             for item in items_seleccionados:
                 id_item = self.tree.item(item, "text")
-                print(id_item)
                 mi_id = id_item
-                print(type(mi_id))
                 data = (mi_id,)
                 sql = "DELETE FROM mujeres_en_la_musica WHERE id = ?"
                 self.db.cursor.execute(sql, data)
                 self.db.conn.commit()
                 self.tree.delete(item)
+                return id_item
         except Exception as e:
             print("El error es el siguiente ==> ", e)
 
@@ -83,7 +84,7 @@ class Abmc():
     def insertar_treeview(self):
 
         """ 
-        Se insrtan los elementos dentro del Treeview 
+        Se insertan los elementos dentro del Treeview 
         
         """
 
@@ -114,7 +115,7 @@ class Abmc():
                     tree.insert("", 0, text=dato[0], values=(dato[1], dato[2], dato[3], dato[4]))
         except Exception as e:
             print("Hubo un error al buscar los elementos ==> ", e)
-
+    
     def editar_item(self, root, var_nombre, var_pais, var_genero, var_descripcion, entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion):
        
         
@@ -141,6 +142,8 @@ class Abmc():
         except Exception as e:
             print("Hubo un error editar los elementos ==>", e)
 
+
+    @Decoradores_iea(option="option3")
     def guardar_cambios(self, var_nombre, var_pais, var_genero, var_descripcion, entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion):
         
         """
@@ -161,6 +164,7 @@ class Abmc():
             self.mis_utilidades.actualizar_treeview_GUI()
             self.insertar_treeview()
             guardar_cambios_btn.destroy()
+            return id_seleccionado
         except Exception as e:
             print("Hubo un error al guardar los cambios", e)
         
