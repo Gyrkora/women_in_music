@@ -8,12 +8,14 @@ Módulo que se encarga de hacer funcionar la aplicación directamente con el uso
 from tkinter import Tk 
 
 from vista import Vista
+import observador
 
 
 class Controlador:
     def __init__(self, root):
         self.root = root
         self.view = Vista(self.root)
+        self.el_observador = observador.ConcreteObserverA(self.view.model_class)
 
 
 if __name__ == "__main__":

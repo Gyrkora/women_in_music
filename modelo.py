@@ -9,9 +9,10 @@ En este módulo se puede encontrar el funcionamiento de la API, ya que utiliza l
 
 from tkinter import Button
 from clases_secundarias import Utilidades, MyDataBase, Validar, Decoradores_iea
+from observador import Sujeto
 
 
-class Abmc():
+class Abmc(Sujeto):
     def __init__(self, tree):
         self.tree = tree
         self.type_error = None
@@ -53,6 +54,7 @@ class Abmc():
             self.insertar_treeview()
             self.mis_utilidades.limpiar_entradas(entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion)
             self.mis_utilidades.advertencia("cantante guardada con éxito 😁", "green", "white", 4, 1, root)
+            self.notificar(nombre,descripcion)
         else:
             self.mis_utilidades.advertencia("Sólo se aceptan números o letras", "red", "white", 1, 1, root)
 

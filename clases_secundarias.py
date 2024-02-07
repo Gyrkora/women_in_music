@@ -151,21 +151,21 @@ class Decoradores_iea:
 
     def __call__(self, func):
         def wrapper(*args, **kwargs):
-            modified_item = func(*args, **kwargs)
+            fcn_retornada = func(*args, **kwargs)
             date_time = datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S')
 
-            with open('deletion_log.txt', 'a') as file:  
+            with open('log.txt', 'a') as file:  
                 if self.option == 'option1':
                     print("Se ha ingresado nuevo registro el día ")
                     file.write(f"nuevo registro {date_time}.\n")
                 elif self.option == 'option2':
                     print("Se ha eliminado un registro")
-                    file.write(f"registro eliminado con id: {modified_item} el dia {date_time}.\n")
-                    return modified_item
+                    file.write(f"registro eliminado con id: {fcn_retornada} el dia {date_time}.\n")
+                    return fcn_retornada
                 elif self.option == 'option3':
                     print("Se ha actualizado un registro")
-                    file.write(f"registro actualizado con id: {modified_item} el dia {date_time}.\n")
-                    return modified_item
+                    file.write(f"registro actualizado con id: {fcn_retornada} el dia {date_time}.\n")
+                    return fcn_retornada
         
 
         return wrapper
