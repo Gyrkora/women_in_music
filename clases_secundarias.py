@@ -156,8 +156,8 @@ class Decoradores_iea:
 
             with open('log.txt', 'a') as file:  
                 if self.option == 'option1':
-                    print("Se ha ingresado nuevo registro el día ")
-                    file.write(f"nuevo registro {date_time}.\n")
+                    print("nuevo registro")
+                    file.write(f"el dia {date_time}.\n")
                 elif self.option == 'option2':
                     print("Se ha eliminado un registro")
                     file.write(f"registro eliminado con id: {fcn_retornada} el dia {date_time}.\n")
@@ -171,10 +171,5 @@ class Decoradores_iea:
         return wrapper
 
 
-# def decoradores_iea_como_fn(fcn):
-#     def envoltura(*args):
-#         print("objeto eliminado")
-#         return fcn(*args)
-#     return envoltura
 
    

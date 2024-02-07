@@ -54,7 +54,7 @@ class Abmc(Sujeto):
             self.insertar_treeview()
             self.mis_utilidades.limpiar_entradas(entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion)
             self.mis_utilidades.advertencia("cantante guardada con éxito 😁", "green", "white", 4, 1, root)
-            self.notificar(nombre,descripcion)
+            self.notificar(nombre, descripcion)
         else:
             self.mis_utilidades.advertencia("Sólo se aceptan números o letras", "red", "white", 1, 1, root)
 
