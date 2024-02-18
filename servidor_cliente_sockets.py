@@ -99,10 +99,7 @@ class Servidor():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((server_host, server_port))
             with open('log.txt', 'a') as file: 
-                if isinstance(info, int):
-                    file.write(f"(Servidor) Hubo un cambio en el id = {info}  \n")  
-                else:
-                    file.write(f"(Servidor) Hubo un cambio de nombre = {info} de un registro   \n")
+                  file.write(f"(Servidor) Hubo un cambio en el id = {info}  \n")
             s.sendall(b"cliente conectado")
             data = s.recv(1024)
             print(f"conexión desde cliente: {data.decode('utf-8')}")          

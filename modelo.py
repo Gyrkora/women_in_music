@@ -55,7 +55,7 @@ class Abmc(Sujeto):
             self.mis_utilidades.limpiar_entradas(entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion)
             self.mis_utilidades.advertencia("cantante guardada con éxito 😁", "green", "white", 4, 1, root)
             self.notificar(nombre, descripcion)
-            self.cliente_socket.conexion_cliente(nombre)
+       
             
         else:
             self.mis_utilidades.advertencia("Sólo se aceptan números o letras", "red", "white", 1, 1, root)
