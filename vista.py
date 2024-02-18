@@ -15,6 +15,7 @@ from tkinter import Button
 from tkinter import Tk 
 
 from modelo import Abmc
+from clases_secundarias import Servidor
 
 
 class Vista:
@@ -84,7 +85,9 @@ class Vista:
         self.tree.heading("col4", text="Descripción")
         self.tree.grid(row=6, column=0, columnspan=4, pady=20)
 
+        # instancias de clases importadas
         self.model_class = Abmc(self.tree)
+        self.lanzar_servidor = Servidor()
 
         # """ botones """
         
@@ -105,6 +108,14 @@ class Vista:
         btn_buscar = Button(root, text="buscar", command=lambda:self.model_class.buscar_item(self.tree, self.var_busqueda))
         
         btn_buscar.grid(row=4, column=3,sticky="w")
+
+        btn_encender_servidor = Button(root, text="encender servidor", command=lambda:self.lanzar_servidor.iniciar_conexion())
+        
+        btn_encender_servidor.grid(row=7, column=1,sticky="w")
+
+        btn_apagar_servidor = Button(root, text="apagar servidor", command=lambda:self.lanzar_servidor.apagar_servidor())
+        
+        btn_apagar_servidor.grid(row=7, column=3,sticky="w")
 
         
         root.bind('<Return>', lambda event: self.model_class.evento_enter(self.var_busqueda))

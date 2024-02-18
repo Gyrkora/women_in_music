@@ -12,6 +12,9 @@ import sqlite3
 import re
 import datetime
 
+# import sys
+# import os
+
 class Utilidades():
 
     """
@@ -171,5 +174,53 @@ class Decoradores_iea:
         return wrapper
 
 
+theproc = ""
 
-   
+import subprocess
+import threading
+import sys
+import os
+from pathlib import Path
+import socket
+
+theproc = None
+
+class Servidor():
+
+    def __init__(self) -> None:
+        self.raiz = Path(__file__).resolve().parent
+        self.ruta_server = os.path.join(self.raiz, 'src', 'servidor.py')
+
+    def iniciar_conexion(self):
+        global theproc
+        if theproc is not None:
+            self.apagar_servidor()
+        threading.Thread(target=self.lanzar_servidor, args=(True,), daemon=True).start()
+            
+    def lanzar_servidor(self, var):
+        global theproc
+        the_path = self.ruta_server
+        if var == True:
+            theproc = subprocess.Popen([sys.executable, the_path])
+            print('Servidor iniciado desde ventanita')
+            theproc.communicate()
+
+    def apagar_servidor(self):
+        global theproc
+        if theproc is not None:  
+            try:
+                theproc.kill()  
+                theproc = None  
+                print("Servidor apagado")
+            except Exception as e:
+                print(f"Error al intentar apagar el servidor: {e}")
+
+
+    def conexion_cliente(nuevo_registro, server_host='127.0.0.1', server_port=65432):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((server_host, server_port))
+            with open('log.txt', 'a') as file:  
+                file.write(f"nuevo registro con nombre =  {nuevo_registro}  ")
+            s.sendall(b"Hola, servidor. Soy el cliente.")
+            data = s.recv(1024)
+            print(f"Mensaje recibido del servidor: {data.decode('utf-8')}")

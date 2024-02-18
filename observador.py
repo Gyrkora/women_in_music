@@ -47,7 +47,6 @@ class ConcreteObserverA(Observador):
     def update(self, *args):
         print("actualizado el observador =  ConcreteObserverA")
         ((nombre, descripcion),) = args
-
         with open('log.txt', 'a') as file:  
             file.write(f"nuevo registro con nombre =  {nombre.upper()}  ")
 
