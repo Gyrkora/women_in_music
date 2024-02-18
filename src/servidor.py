@@ -1,7 +1,22 @@
-# server.py
+"""
+Módulo que contiene a la función da inicio al servidor con protocolo TCP/IP 
+
+"""
+
+
 import socket
 
-def start_server(host='127.0.0.1', port=65432):
+
+
+
+
+def iniciar_servidor(host='127.0.0.1', port=65432):
+
+    """ 
+    Al ejecutarse se crea un socket que dará apertura al servidor a recibir y enviar mensajes a clientes
+
+    """
+
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((host, port))
         s.listen()
@@ -13,9 +28,9 @@ def start_server(host='127.0.0.1', port=65432):
                 data = conn.recv(1024)
                 if not data:
                     break
-                print(f"Mensaje recibido del servidor: {data.decode('utf-8')}")
-                conn.sendall(b"Mensaje recibido. Gracias.")
+                print(f"conexión desde servidor: {data.decode('utf-8')}")
+                conn.sendall(b"servidor conectado.")
                 break 
 
 if __name__ == '__main__':
-    start_server()
+    iniciar_servidor()

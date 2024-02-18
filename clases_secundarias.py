@@ -11,9 +11,7 @@ from tkinter import Label
 import sqlite3
 import re
 import datetime
-
-# import sys
-# import os
+from servidor_cliente_sockets import Servidor
 
 class Utilidades():
 
@@ -24,6 +22,7 @@ class Utilidades():
     """
     def __init__(self, tree):
         self.tree = tree
+        self.cliente_socket = Servidor()
     
     def actualizar_treeview_GUI(self):
        
@@ -148,9 +147,22 @@ class Validar():
             print("Sólo se aceptan números o letras")
 
 
+
+
+
+
 class Decoradores_iea:
+
+
+    """ 
+    Clase decoradora que crea diferentes decoradores para las acciones que sucedan en la app 
+
+    """
+
     def __init__(self, option):
         self.option = option
+        self.cliente_socket = Servidor()
+
 
     def __call__(self, func):
         def wrapper(*args, **kwargs):
@@ -158,69 +170,22 @@ class Decoradores_iea:
             date_time = datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S')
 
             with open('log.txt', 'a') as file:  
-                if self.option == 'option1':
-                    print("nuevo registro")
-                    file.write(f"el dia {date_time}.\n")
-                elif self.option == 'option2':
+                # if self.option == 'option1':
+                #     print("nuevo registro (desde el decorador)")
+                #     file.write(f"el dia {date_time}.\n")
+                    
+                if self.option == 'option2':
                     print("Se ha eliminado un registro")
                     file.write(f"registro eliminado con id: {fcn_retornada} el dia {date_time}.\n")
+                    
                     return fcn_retornada
                 elif self.option == 'option3':
                     print("Se ha actualizado un registro")
                     file.write(f"registro actualizado con id: {fcn_retornada} el dia {date_time}.\n")
+                    
                     return fcn_retornada
         
 
         return wrapper
 
 
-theproc = ""
-
-import subprocess
-import threading
-import sys
-import os
-from pathlib import Path
-import socket
-
-theproc = None
-
-class Servidor():
-
-    def __init__(self) -> None:
-        self.raiz = Path(__file__).resolve().parent
-        self.ruta_server = os.path.join(self.raiz, 'src', 'servidor.py')
-
-    def iniciar_conexion(self):
-        global theproc
-        if theproc is not None:
-            self.apagar_servidor()
-        threading.Thread(target=self.lanzar_servidor, args=(True,), daemon=True).start()
-            
-    def lanzar_servidor(self, var):
-        global theproc
-        the_path = self.ruta_server
-        if var == True:
-            theproc = subprocess.Popen([sys.executable, the_path])
-            print('Servidor iniciado desde ventanita')
-            theproc.communicate()
-
-    def apagar_servidor(self):
-        global theproc
-        if theproc is not None:  
-            try:
-                theproc.kill()  
-                theproc = None  
-                print("Servidor apagado")
-            except Exception as e:
-                print(f"Error al intentar apagar el servidor: {e}")
-
-
-    def conexion_cliente(nuevo_registro, server_host='127.0.0.1', server_port=65432):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((server_host, server_port))
-            with open('log.txt', 'a') as file:  
-                file.write(f"nuevo registro con nombre =  {nuevo_registro}  ")
-            s.sendall(b"Hola, servidor. Soy el cliente.")
-            data = s.recv(1024)
-            print(f"Mensaje recibido del servidor: {data.decode('utf-8')}")

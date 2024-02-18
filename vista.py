@@ -15,7 +15,7 @@ from tkinter import Button
 from tkinter import Tk 
 
 from modelo import Abmc
-from clases_secundarias import Servidor
+from servidor_cliente_sockets import Servidor
 
 
 class Vista:
@@ -111,7 +111,7 @@ class Vista:
 
         btn_encender_servidor = Button(root, text="encender servidor", command=lambda:self.lanzar_servidor.iniciar_conexion())
         
-        btn_encender_servidor.grid(row=7, column=1,sticky="w")
+        btn_encender_servidor.grid(row=7, column=2,sticky="w")
 
         btn_apagar_servidor = Button(root, text="apagar servidor", command=lambda:self.lanzar_servidor.apagar_servidor())
         

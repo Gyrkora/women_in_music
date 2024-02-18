@@ -6,8 +6,13 @@ un sujeto para mantenerse actualizado sobre su estado.
 
 """
 
+import datetime
+
+
 class Sujeto:
     
+  
+
     observadores=[]
 
     def agregar(self, obj):
@@ -43,10 +48,11 @@ class ConcreteObserverA(Observador):
     def __init__(self, obj):
         self.observado_a = obj
         self.observado_a.agregar(self)
+        self.date_time = datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S')
 
     def update(self, *args):
         print("actualizado el observador =  ConcreteObserverA")
         ((nombre, descripcion),) = args
         with open('log.txt', 'a') as file:  
-            file.write(f"nuevo registro con nombre =  {nombre.upper()}  ")
+            file.write(f"(observador) nuevo registro con nombre = {nombre.upper()} el dia {self.date_time} \n")
 

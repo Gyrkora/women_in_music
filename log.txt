@@ -1,6 +1,50 @@
-nuevo registro = (('dfs', 'ddd'),) el dia 02/07/2024, 17:53:08.
-nuevo registro = (('sdf', 'ddd'),) el dia 02/07/2024, 17:56:19.
-nuevo registro = sdf el dia 02/07/2024, 18:00:52.
-nuevo registro con nombre =  Vxcccc  el dia 02/07/2024, 18:03:29.
-nuevo registro con nombre =  SFSDF  nuevo registro con nombre =  THALIA  el dia 02/07/2024, 18:05:38.
-nuevo registro con nombre =  SHAKIRA  el dia 02/07/2024, 18:06:20.
+nuevo registro con nombre desde el observador =  SDF a las 02/18/2024, 19:33:43 
+Servidor comunica: Hubo un cambio de nombre = sdf de un registro   
+Servidor comunica: Hubo un cambio de nombre = 122 de un registro   
+registro eliminado con id: None el dia 02/18/2024, 19:34:09.
+Servidor comunica: Hubo un cambio de nombre = 129 de un registro   
+registro eliminado con id: 129 el dia 02/18/2024, 19:46:27.
+nuevo registro con nombre desde el observador =  DFG a las 02/18/2024, 19:46:21 
+Servidor comunica: Hubo un cambio de nombre = dfg de un registro   
+Servidor comunica: Hubo un cambio de nombre = 127 de un registro   
+registro eliminado con id: 127 el dia 02/18/2024, 19:47:32.
+nuevo registro con nombre desde el observador =  SDF a las 02/18/2024, 19:47:28 
+Servidor comunica: Hubo un cambio de nombre = sdf de un registro   
+Servidor comunica: Hubo un cambio de nombre = 130 de un registro   
+registro actualizado con id: 130 el dia 02/18/2024, 19:47:44.
+nuevo registro con nombre desde el observador =  SDF a las 02/18/2024, 19:47:28 
+Servidor comunica: Hubo un cambio de nombre = sdf de un registro   
+Servidor comunica: Hubo un cambio de nombre = 130 de un registro   
+registro eliminado con id: 130 el dia 02/18/2024, 19:47:56.
+nuevo registro con nombre desde el observador =  SDF a las 02/18/2024, 19:47:28 
+Servidor comunica: Hubo un cambio de nombre = sdf de un registro   
+Servidor comunica: Hubo un cambio de nombre = 132 de un registro   
+registro eliminado con id: 132 el dia 02/18/2024, 19:48:12.
+Servidor comunica: Hubo un cambio de nombre = 125 de un registro   
+registro eliminado con id: 125 el dia 02/18/2024, 19:48:14.
+nuevo registro con nombre desde el observador =  SDF a las 02/18/2024, 19:47:28 
+Servidor comunica: Hubo un cambio de nombre = sdf de un registro   
+servidor comunica: Hubo un cambio en el id = 133  
+registro eliminado con id: 133 el dia 02/18/2024, 19:50:51.
+(observador) nuevo registro con nombre = SDF el dia 02/18/2024, 19:50:48 
+Servidor comunica: Hubo un cambio de nombre = sdf de un registro   
+(observador) nuevo registro con nombre = DD el dia 02/18/2024, 19:50:48 
+Servidor comunica: Hubo un cambio de nombre = dd de un registro   
+servidor comunica: Hubo un cambio en el id = 128  
+registro actualizado con id: 128 el dia 02/18/2024, 19:51:12.
+(observador) nuevo registro con nombre = XZC el dia 02/18/2024, 19:50:48 
+Servidor comunica: Hubo un cambio de nombre = xzc de un registro   
+servidor comunica: Hubo un cambio en el id = 136  
+registro eliminado con id: 136 el dia 02/18/2024, 19:52:18.
+(Servidor) Hubo un cambio en el id = 135  
+registro eliminado con id: 135 el dia 02/18/2024, 19:53:29.
+(observador) nuevo registro con nombre = DFG el dia 02/18/2024, 19:53:26 
+(Servidor) Hubo un cambio de nombre = dfg de un registro   
+(Servidor) Hubo un cambio en el id = 134  
+registro actualizado con id: 134 el dia 02/18/2024, 19:53:40.
+(observador) nuevo registro con nombre = ZXC el dia 02/18/2024, 19:54:39 
+(Servidor) Hubo un cambio de nombre = zxc de un registro   
+(Servidor) Hubo un cambio en el id = 138  
+registro eliminado con id: 138 el dia 02/18/2024, 19:54:53.
+(Servidor) Hubo un cambio en el id = 134  
+registro eliminado con id: 134 el dia 02/18/2024, 19:55:01.

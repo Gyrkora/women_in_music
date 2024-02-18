@@ -10,6 +10,7 @@ En este módulo se puede encontrar el funcionamiento de la API, ya que utiliza l
 from tkinter import Button
 from clases_secundarias import Utilidades, MyDataBase, Validar, Decoradores_iea
 from observador import Sujeto
+from servidor_cliente_sockets import Servidor
 
 
 class Abmc(Sujeto):
@@ -20,6 +21,7 @@ class Abmc(Sujeto):
         self.mis_utilidades = Utilidades(tree)
         self.db = MyDataBase()
         self.db.crear_tabla()
+        self.cliente_socket = Servidor()
 
 
     def evento_enter(self, var_busqueda):
@@ -31,7 +33,7 @@ class Abmc(Sujeto):
 
 
 
-    @Decoradores_iea(option="option1")
+    # @Decoradores_iea(option="option1")
     def guardar(self, nombre, pais, genero, descripcion, entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion, root):
 
         """
@@ -55,6 +57,8 @@ class Abmc(Sujeto):
             self.mis_utilidades.limpiar_entradas(entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion)
             self.mis_utilidades.advertencia("cantante guardada con éxito 😁", "green", "white", 4, 1, root)
             self.notificar(nombre, descripcion)
+            self.cliente_socket.conexion_cliente(nombre)
+            
         else:
             self.mis_utilidades.advertencia("Sólo se aceptan números o letras", "red", "white", 1, 1, root)
 
@@ -77,6 +81,7 @@ class Abmc(Sujeto):
                 self.db.cursor.execute(sql, data)
                 self.db.conn.commit()
                 self.tree.delete(item)
+                self.cliente_socket.conexion_cliente(id_item)
                 return id_item
         except Exception as e:
             print("El error es el siguiente ==> ", e)
@@ -125,6 +130,7 @@ class Abmc(Sujeto):
         Modifica los datos desde el treeview hasta la base de datos
 
         """
+
        
         global guardar_cambios_btn
         try:
@@ -154,8 +160,11 @@ class Abmc(Sujeto):
 
         """
         
+
+        
         try:
             elementos_seleccionados = self.tree.selection()
+            
             id_seleccionado = self.tree.item(elementos_seleccionados, "text")
             nombre_capitalizado = self.mis_utilidades.capitalizar_doble(var_nombre.get())
             var_nombre  = nombre_capitalizado
@@ -166,7 +175,10 @@ class Abmc(Sujeto):
             self.mis_utilidades.actualizar_treeview_GUI()
             self.insertar_treeview()
             guardar_cambios_btn.destroy()
+            self.cliente_socket.conexion_cliente(id_seleccionado)
+               
             return id_seleccionado
+            # return respuesta
         except Exception as e:
             print("Hubo un error al guardar los cambios", e)
         

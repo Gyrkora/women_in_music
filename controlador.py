@@ -2,7 +2,6 @@
 
 Módulo que se encarga de hacer funcionar la aplicación directamente con el uso del módulo Vista como argumento.
 
-
 """
 
 from tkinter import Tk 
