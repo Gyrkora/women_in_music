@@ -170,9 +170,6 @@ class Decoradores_iea:
             date_time = datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S')
 
             with open('log.txt', 'a') as file:  
-                # if self.option == 'option1':
-                #     print("nuevo registro (desde el decorador)")
-                #     file.write(f"el dia {date_time}.\n")
                     
                 if self.option == 'option2':
                     print("Se ha eliminado un registro")

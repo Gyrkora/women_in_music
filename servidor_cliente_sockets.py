@@ -40,15 +40,7 @@ class Servidor():
             self.apagar_servidor()
         threading.Thread(target=self.lanzar_servidor, args=(True,), daemon=True).start()
 
-        
-
-        # if self.proceso_servidor is not None:
-        #     self.apagar_servidor()
-        # # Asume que servidor.py es tu script del servidor
-        # self.proceso_servidor = subprocess.Popen([sys.executable, 'servidor.py'], stdout=subprocess.PIPE)
-        # threading.Thread(target=self.verificar_salida, args=(self.proceso_servidor,), daemon=True).start()
-
-
+    
 
         """ 
         Comienza con el proceso de conexión con el servidor al ejecutar el archivo

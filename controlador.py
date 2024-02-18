@@ -27,3 +27,4 @@ if __name__ == "__main__":
         print(f"el typerror es: {e}")
     except Exception as e:
         print(f"otro tipo de error:", e)
+

@@ -32,8 +32,6 @@ class Abmc(Sujeto):
             print("Este es el error ==>", e)    
 
 
-
-    # @Decoradores_iea(option="option1")
     def guardar(self, nombre, pais, genero, descripcion, entrada_nombre, entrada_pais, entrada_genero, entrada_descripcion, root):
 
         """
